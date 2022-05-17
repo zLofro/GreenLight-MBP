@@ -16,7 +16,6 @@ import java.nio.file.Paths;
 
 /**
  * A class to save any state from objects to json files.
- *
  */
 public class JsonConfig {
     private final Gson gson = new GsonBuilder()
@@ -49,7 +48,7 @@ public class JsonConfig {
      * @return A new {@link JsonConfig} object.
      * @throws Exception If the file cannot be created.
      */
-    public static JsonConfig cfg(String filename, JavaPlugin plugin) throws Exception {
+    public static JsonConfig config(String filename, JavaPlugin plugin) throws Exception {
         return new JsonConfig(filename, plugin.getDataFolder().getAbsolutePath());
     }
 

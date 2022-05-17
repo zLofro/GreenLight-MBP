@@ -2,24 +2,28 @@ package me.lofro.data;
 
 import me.lofro.GreenLightCore;
 import me.lofro.data.utils.JsonConfig;
-import me.lofro.global.interfaces.Restorable;
 
-public class DataManager implements Restorable {
+public class DataManager {
 
     private final GreenLightCore greenLightCore;
 
-    public DataManager(final GreenLightCore greenLightCore) {
+    private final JsonConfig gameDataConfig;
+
+    public DataManager(final GreenLightCore greenLightCore) throws Exception {
         this.greenLightCore = greenLightCore;
+
+        this.gameDataConfig = JsonConfig.config("gameData.json", greenLightCore);
     }
 
-    @Override
-    public void restore(JsonConfig jsonConfig) {
-
+    public void save() {
+        greenLightCore.gameManager().save(gameDataConfig);
     }
 
-    @Override
-    public void save(JsonConfig jsonConfig) {
-
+    /**
+     * @return the game data config.
+     */
+    public JsonConfig gameDataConfig() {
+        return gameDataConfig;
     }
 
 }

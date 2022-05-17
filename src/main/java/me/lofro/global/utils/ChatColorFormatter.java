@@ -7,7 +7,7 @@ import org.bukkit.ChatColor;
 public class ChatColorFormatter {
 
     public static final String name = stringToString("&a&lGreen&2Light");
-    public static final String prefix = stringToString(name + " &r➱ ");
+    public static final String prefix = stringToString(name + " &r>> ");
 
     /**
      * Function that translates the given String into another String with ChatColor format.

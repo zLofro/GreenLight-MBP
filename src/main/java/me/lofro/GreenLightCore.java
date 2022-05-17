@@ -1,5 +1,6 @@
 package me.lofro;
 
+import co.aikar.commands.PaperCommandManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import me.lofro.data.DataManager;
@@ -29,19 +30,37 @@ public class GreenLightCore extends JavaPlugin {
     private GameManager gameManager;
     private DataManager dataManager;
 
+    private PaperCommandManager paperCommandManager;
+
     @Override
     public void onEnable() {
         pluginInstance = this;
 
+        paperCommandManager = new PaperCommandManager(this);
+
+        try {
+            this.dataManager = new DataManager(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         this.gameManager = new GameManager(this);
-        this.dataManager = new DataManager(this);
 
         Bukkit.getConsoleSender().sendMessage(ChatColorFormatter.stringToComponentWithPrefix("&aEl plugin ha sido activado correctamente."));
     }
 
     @Override
     public void onDisable() {
+        dataManager.save();
+
         Bukkit.getConsoleSender().sendMessage(ChatColorFormatter.stringToComponentWithPrefix("&aEl plugin ha sido desactivado correctamente."));
+    }
+
+    /**
+     * @return the plugin manager instance.
+     */
+    public static GreenLightCore instance() {
+        return pluginInstance;
     }
 
     /**
@@ -49,6 +68,27 @@ public class GreenLightCore extends JavaPlugin {
      */
     public static Gson gson() {
         return gson;
+    }
+
+    /**
+     * @return the paper command manager.
+     */
+    public PaperCommandManager paperCommandManager() {
+        return paperCommandManager;
+    }
+
+    /**
+     * @return the game manager.
+     */
+    public GameManager gameManager() {
+        return gameManager;
+    }
+
+    /**
+     * @return the data manager.
+     */
+    public DataManager dataManager() {
+        return dataManager;
     }
 
 }
